@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animatsiya uchun */
+@keyframes slideLeft {
+    0% {
+        transform: translateX(100%); /* Boshida o'ngda */
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0); /* So'nggi holatda markazda */
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(-100%); /* Boshida chapda */
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0); /* So'nggi holatda markazda */
+        opacity: 1;
+    }
+}
+
+.card {
+    animation-duration: 0.6s;
+    animation-timing-function: ease-in-out;
+    opacity: 0; /* Dastlab ko'rinmas holatda */
+    transform: translateX(0); /* Animatsiyani boshlash */
+    animation-fill-mode: forwards; /* Animatsiya tugagandan keyin elementni o'z holatida saqlash */
+}
+
+/* Agar element chapdan kelsa */
+.card.left {
+    animation-name: slideLeft;
+}
+
+/* Agar element o'ngdan kelsa */
+.card.right {
+    animation-name: slideRight;
+}
