@@ -2,7 +2,7 @@
   <div class="container mx-auto max-w-6xl grid grid-cols-6 gap-6">
 
     <div class="">
-      <img src="{{ asset('/assets/light.svg')}}" alt="Logo" class="mb-4 w-40 h-auto">
+      <img src="{{ asset('/assets/logo.jpeg')}}" alt="Logo" class="mb-4 w-40 h-auto rounded-md">
 
     </div>
 

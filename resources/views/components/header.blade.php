@@ -4,7 +4,7 @@
     <!-- Logo va Matn -->
     <div class="flex items-center space-x-4">
       <a href="/">
-      <img src="{{ asset('/assets/light.svg')}}" alt="Logo" class="h-10 w-[100px]">
+      <img src="{{ asset('/assets/logo.jpeg')}}" alt="Logo" class="h-10 w-[100px] rounded-md">
       </a>
       <div class="border-l-2 border-gray-400 h-10 mx-4"></div>
       <div class="text-white">
