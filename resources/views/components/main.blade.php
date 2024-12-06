@@ -225,19 +225,10 @@ const flipBook = (elBook) => {
   let currentPage = 1;
   let direction = 1;
   const totalPages = elBook.querySelectorAll(".page").length;
+  let autoFlipInterval;
 
-  elBook.style.setProperty("--c", currentPage);
-
-  elBook.querySelectorAll(".page").forEach((page, idx) => {
-    page.style.setProperty("--i", idx);
-    page.addEventListener("click", (evt) => {
-      if (evt.target.closest("a")) return;
-      currentPage = evt.target.closest(".back") ? idx : idx + 1;
-      elBook.style.setProperty("--c", currentPage);
-    });
-  });
-
-  setInterval(() => {
+  // Kitobni aylantirish funksiyasi
+  const autoFlip = () => {
     if (currentPage === totalPages - 1 && direction === 1) {
       direction = -1;
     } else if (currentPage === 1 && direction === -1) {
@@ -245,13 +236,37 @@ const flipBook = (elBook) => {
     }
     currentPage += direction;
     elBook.style.setProperty("--c", currentPage);
-  }, 3000);
+  };
+
+  // Kitobni boshlash
+  elBook.style.setProperty("--c", currentPage);
+
+  // Har bir sahifa uchun xususiyatlar
+  elBook.querySelectorAll(".page").forEach((page, idx) => {
+    page.style.setProperty("--i", idx);
+    page.addEventListener("click", (evt) => {
+      if (evt.target.closest("a")) return;
+      currentPage = evt.target.closest(".back") ? idx : idx + 1;
+      elBook.style.setProperty("--c", currentPage);
+    });
+
+    // Sahifaga sichqoncha kirsa, avtomatik aylanishni to'xtatish
+    page.addEventListener("mouseover", () => {
+      clearInterval(autoFlipInterval);
+    });
+
+    // Sahifadan sichqoncha chiqsa, avtomatik aylanishni qayta ishga tushirish
+    page.addEventListener("mouseleave", () => {
+      autoFlipInterval = setInterval(autoFlip, 3000);
+    });
+  });
+
+  // Avtomatik aylanishni boshlash
+  autoFlipInterval = setInterval(autoFlip, 3000);
 };
 
 document.querySelectorAll(".book").forEach(flipBook);
-
-
-
 </script>
+
 </body>
 </html>

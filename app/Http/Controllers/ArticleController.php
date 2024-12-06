@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    // Maqolani yaratish uchun forma ko'rsatish
+    // Maqolani yaratish
     public function create()
     {
         return view('articles.create');
@@ -16,14 +16,32 @@ class ArticleController extends Controller
     // Maqolani saqlash
     public function store(Request $request)
     {
-        $request->validate([
+        // Ma'lumotlarni validatsiya qilish
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'image' => 'nullable|image|max:2048',
+            'pdf' => 'nullable|mimes:pdf|max:10000',
         ]);
 
+        // Fayllarni saqlash
+        $imagePath = null;
+        $pdfPath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
+
+        if ($request->hasFile('pdf')) {
+            $pdfPath = $request->file('pdf')->store('pdfs', 'public');
+        }
+
+        // Maqolani saqlash
         Article::create([
-            'title' => $request->title,
-            'content' => $request->content,
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'image' => $imagePath,
+            'pdf' => $pdfPath,
             'is_approved' => false,
             'author_id' => auth()->id(),
             'author_type' => get_class(auth()->user()),
@@ -48,13 +66,14 @@ class ArticleController extends Controller
         return redirect()->route('dashboard')->with('error', 'Sizda bu amalni bajarishga ruxsat yo\'q.');
     }
 
+    // Maqolani ko'rsatish
     public function show($id)
-{
-    $article = Article::findOrFail($id);
-    return view('articles.show', compact('article'));
-}
+    {
+        $article = Article::findOrFail($id);
+        return view('articles.show', compact('article'));
+    }
 
-
+    // Maqolani tahrirlash
     public function edit($id)
     {
         $article = Article::findOrFail($id);
@@ -67,9 +86,9 @@ class ArticleController extends Controller
         return view('articles.edit', compact('article'));
     }
 
+    // Maqolani yangilash
     public function update(Request $request, $id)
     {
-        // Ma'lumotlarni validatsiya qilish
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -77,13 +96,10 @@ class ArticleController extends Controller
 
         $article = Article::findOrFail($id);
 
-        // Faqat o'z maqolasini yangilash uchun ruxsat berish
         if (auth()->user()->id !== $article->author_id && !auth()->user()->hasRole('admin')) {
             return redirect()->route('dashboard')->with('error', 'Sizda bu maqolani yangilash huquqi yo\'q.');
         }
 
-
-        // Maqolani yangilash
         $article->update([
             'title' => $validated['title'],
             'content' => $validated['content'],
@@ -92,24 +108,16 @@ class ArticleController extends Controller
         return redirect()->route('dashboard')->with('success', 'Maqola muvaffaqiyatli yangilandi!');
     }
 
+    // Maqolani o'chirish
     public function destroy($id)
-{
-    // Maqolani topish
-    $article = Article::findOrFail($id);
+    {
+        $article = Article::findOrFail($id);
 
-    // Maqola egasini olish (polimorfik aloqada)
-    $author = $article->author;
+        if (auth()->user()->hasRole('admin') || auth()->user()->id === $article->author_id) {
+            $article->delete();
+            return redirect()->route('dashboard')->with('success', 'Maqola o\'chirildi.');
+        }
 
-    // Foydalanuvchi maqolani o'chirish huquqiga ega bo'lsa
-    if (auth()->user()->hasRole('admin') || auth()->user()->id === $author->id) {
-        // Maqolani o'chirish
-        $article->delete();
-
-        return redirect()->route('dashboard')->with('success', 'Maqola o\'chirildi.');
+        return redirect()->route('dashboard')->with('error', 'Siz bu maqolani o\'chirishingiz mumkin emas.');
     }
-
-    // Foydalanuvchi maqolani o'chirishga huquqi yo'q
-    return redirect()->route('dashboard')->with('error', 'Siz bu maqolani o\'chirishingiz mumkin emas.');
-}
-
 }

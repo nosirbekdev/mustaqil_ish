@@ -26,33 +26,32 @@
     @if (!request()->has('q') && !request()->has('search_publisher') && !request()->has('search_language'))
         <h2 class="text-2xl font-semibold text-gray-700 mb-4">Barcha maqolalar</h2>
         <div class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-            @foreach (config('books.maqola') as $book)
+            @foreach ($articles as $book)
                 <div class="flex items-center gap-4 bg-sky-50/50 p-4 rounded-lg hover:bg-sky-50/80 transition-colors">
                     <div class="shrink-0">
-                        <img src="{{ $book['image'] }}" alt="{{ $book['title'] }}" class="w-24 h-32 object-cover rounded-md border shadow-sm">
+                        <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book['title'] }}" class="w-24 h-32 object-cover rounded-md border shadow-sm">
                     </div>
                     <div class="flex-grow">
                         <h2 class="text-xl font-semibold">{{ $book['title'] }}</h2>
                         <p class="text-gray-600 mt-1">{{ $book['subtitle'] ?? '' }}</p>
                     </div>
-                    <button class="bg-indigo-900 hover:bg-indigo-800 text-white shrink-0 py-2 px-6 rounded-md"><a href="#">Maqola</a></button>
+                    <button class="bg-indigo-900 hover:bg-indigo-800 text-white shrink-0 py-2 px-6 rounded-md"><a href="{{ asset('storage/' . $book->pdf) }}">Maqola</a></button>
                 </div>
             @endforeach
         </div>
     @elseif(isset($books) && $books->isNotEmpty())
         <!-- Display filtered books -->
         <div class="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-            @foreach ($books as $book)
+            @foreach ($articles as $book)
                 <div class="flex items-center gap-4 bg-sky-50/50 p-4 rounded-lg hover:bg-sky-50/80 transition-colors">
                     <div class="shrink-0">
-                        <img src="{{ $book['image'] }}" alt="{{ $book['title'] }}" class="w-24 h-32 object-cover rounded-md border shadow-sm">
+                        <img src="{{ asset('storage/' . $book->image) }}" alt="{{ $book['title'] }}" class="w-24 h-32 object-cover rounded-md border shadow-sm">
                     </div>
                     <div class="flex-grow">
                         <h2 class="text-xl font-semibold">{{ $book['title'] }}</h2>
                         <p class="text-gray-600 mt-1">{{ $book['subtitle'] ?? '' }}</p>
-                        <p class="text-gray-600 mt-1">{{ $book['subtitle'] ?? '' }}</p>
                     </div>
-                    <button class="bg-indigo-900 hover:bg-indigo-800 text-white shrink-0 py-2 px-6 rounded-md"><a href="#">Maqola</a></button>
+                    <button class="bg-indigo-900 hover:bg-indigo-800 text-white shrink-0 py-2 px-6 rounded-md"><a href="{{ asset('storage/' . $book->pdf) }}">Maqola</a></button>
                 </div>
             @endforeach
         </div>

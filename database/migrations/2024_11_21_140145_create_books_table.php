@@ -10,19 +10,18 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function up(): void
-    {
-        Schema::create('books', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('subtitle')->nullable();
-            $table->string('publisher')->nullable();
-            $table->string('language')->nullable();
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->timestamps();
-        });
-    }
+    public function up()
+{
+    Schema::create('books', function (Blueprint $table) {
+        $table->id();
+        $table->string('title');
+        $table->string('author');
+        $table->string('image')->nullable();
+        $table->string('pdf')->nullable();
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

@@ -19,7 +19,7 @@
     ]"
 />
 
-<x-book-list :books="config('books.maqola')" />
+<x-book-list :books="$asias" />
 
 </main>
 @include('components.footer')

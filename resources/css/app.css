@@ -42,3 +42,7 @@
 .card.right {
     animation-name: slideRight;
 }
+
+#success-notification {
+    transition: opacity 0.5s ease;
+}

@@ -12,8 +12,10 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->boolean('is_approved')->default(false); // Maqola tasdiqlangan yoki yo'qligini ko'rsatish
-            $table->morphs('author'); // Polimorfik aloqani yaratish
+            $table->boolean('is_approved')->default(false);
+            $table->morphs('author');
+            $table->string('image')->nullable();
+            $table->string('pdf')->nullable();
             $table->timestamps();
         });
     }

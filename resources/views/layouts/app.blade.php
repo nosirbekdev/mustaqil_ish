@@ -11,15 +11,24 @@
         body {
             display: flex;
             min-height: 100vh;
+            margin: 0;
         }
         aside {
+            position: fixed; /* Sidebarni sahifada bir joyda ushlab turish */
+            top: 0;
+            left: 0;
+            height: 100vh; /* Sidebar balandligi */
             width: 250px;
             background-color: #f8f9fa;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             border-right: 1px solid #e9ecef;
+            overflow-y: auto; /* Agar mazmun ko'p bo'lsa skroll ko'rinadi */
+            display: flex;
+            flex-direction: column; /* Elementlarni ustma-ust joylashtirish */
         }
         main {
+            margin-left: 250px; /* Sidebar kengligini hisobga olish */
             flex-grow: 1;
             padding: 20px;
             background: #f4f6f9;
@@ -47,17 +56,20 @@
             border-radius: 50%;
             object-fit: cover;
         }
+        .logout-button {
+            margin-top: auto; /* Tugmani pastga joylashtirish */
+        }
     </style>
 </head>
 <body>
-    <aside class="shadow-xl">
-
+    <aside>
         <!-- Foydalanuvchi haqida ma'lumot -->
         <div class="flex items-center mb-6">
             <!-- Avatar -->
             <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('assets/default-avatar.png') }}"
                  alt="Avatar"
                  class="avatar mr-4">
+
             <!-- Foydalanuvchi ismi va email -->
             <div>
                 <h3 class="font-semibold text-base">{{ auth()->user()->name }}</h3>
@@ -70,6 +82,20 @@
             <i class="fas fa-home"></i> Asosiy sahifa
         </a>
 
+        <!-- Faqat admin uchun kitob qo'shish bo'limi -->
+        @if(auth()->user()->hasRole('admin'))
+            <a href="{{ route('books.index') }}" class="sidebar-item {{ request()->routeIs('books.index') ? 'active' : '' }}">
+                <i class="fas fa-book"></i> Kitoblar
+            </a>
+        @endif
+
+        <!-- admin uchun fotolavhalar qoshish -->
+         @if(auth()->user()->hasRole('admin'))
+            <a href="{{ route('photos.index') }}" class="sidebar-item {{ request()->routeIs('photos.index') ? 'active' : '' }}">
+                <i class="fas fa-images"></i> Fotolavhalar
+            </a>
+        @endif
+
         <!-- Faqat oddiy foydalanuvchilar uchun "Mening maqolalarim" bo'limi -->
         @if(!auth()->user()->hasRole('admin'))
             <a href="{{ route('articles.create') }}" class="sidebar-item {{ request()->routeIs('articles.create') ? 'active' : '' }}">
@@ -77,8 +103,16 @@
             </a>
         @endif
 
+        <!-- adminga murojaatlar bo'limi -->
+         @if(auth()->user()->hasRole('admin'))
+            <a href="{{ route('contacts.index') }}" class="sidebar-item {{ request()->routeIs('contacts.index') ? 'active' : '' }}">
+                <i class="fas fa-envelope"></i> Murojaatlar
+            </a>
+        @endif
+
+
         <!-- Chiqish -->
-        <form action="{{ route('logout') }}" method="POST" class="mt-[65vh]">
+        <form action="{{ route('logout') }}" method="POST" class="logout-button">
             @csrf
             <button type="submit" class="sidebar-item">
                 <i class="fas fa-sign-out-alt"></i> Chiqish

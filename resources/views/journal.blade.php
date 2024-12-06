@@ -17,8 +17,8 @@
     ]"
 />
 
-<x-book-list :books="config('books.maqola')" />
-<x-book-list :books="config('books.books')" />
+<x-book-list :books="$journals" />
+
 
 </main>
 @include('components.footer')

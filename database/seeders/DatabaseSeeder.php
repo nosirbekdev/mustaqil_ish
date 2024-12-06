@@ -13,6 +13,5 @@ class DatabaseSeeder extends Seeder
     {
         // Admin foydalanuvchini yaratish uchun AdminUserSeeder'ni chaqirish
         $this->call(AdminUserSeeder::class);
-        $this->call(BookSeeder::class);
     }
 }

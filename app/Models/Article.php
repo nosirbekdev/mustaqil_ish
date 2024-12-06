@@ -9,7 +9,7 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'is_approved', 'author_id', 'author_type'];
+    protected $fillable = ['title', 'content', 'is_approved', 'author_id', 'author_type', 'image', 'pdf'];
 
     /**
      * Polimorfik aloqada maqola egasi (User yoki boshqa model)
