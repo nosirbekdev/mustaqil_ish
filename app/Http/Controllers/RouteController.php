@@ -15,6 +15,7 @@ use App\Models\Russia;
 use App\Models\Asia;
 use App\Models\Photo;
 use App\Models\Journal;
+use App\Models\Video;
 
 class RouteController extends Controller
 {
@@ -100,6 +101,11 @@ class RouteController extends Controller
         $photos = Photo::all();
         return view('user.gallery.photos', compact('photos'));
     }
+
+    public function videos() {
+        $videos = Video::all();
+        return view('user.gallery.videos', compact('videos'));
+        }
 
     public function journal() {
         $journals = Journal::where('is_approved', true)->get();

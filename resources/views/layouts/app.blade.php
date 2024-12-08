@@ -96,6 +96,13 @@
             </a>
         @endif
 
+        <!-- Faqat admin uchun videolar qo'shish bo'limi -->
+        @if(auth()->user()->hasRole('admin'))
+            <a href="{{ route('videos.index') }}" class="sidebar-item {{ request()->routeIs('videos.index') ? 'active' : '' }}">
+                <i class="fas fa-video"></i> Videolar
+            </a>
+        @endif
+
         <!-- Faqat oddiy foydalanuvchilar uchun "Mening maqolalarim" bo'limi -->
         @if(!auth()->user()->hasRole('admin'))
             <a href="{{ route('articles.create') }}" class="sidebar-item {{ request()->routeIs('articles.create') ? 'active' : '' }}">
@@ -103,12 +110,19 @@
             </a>
         @endif
 
-        <!-- adminga murojaatlar bo'limi -->
-         @if(auth()->user()->hasRole('admin'))
-            <a href="{{ route('contacts.index') }}" class="sidebar-item {{ request()->routeIs('contacts.index') ? 'active' : '' }}">
+        @php
+            $unreadCount = \App\Models\Contact::where('is_read', false)->count();
+        @endphp
+
+        @if(auth()->user()->hasRole('admin'))
+            <a href="{{ route('contacts.index') }}" class="sidebar-item {{ request()->routeIs('contacts.i   ndex') ? 'active' : '' }}">
                 <i class="fas fa-envelope"></i> Murojaatlar
+                @if($unreadCount > 0)
+                    <span class="badge bg-red-600 text-white px-1 rounded-sm">{{ $unreadCount }}</span>
+                @endif
             </a>
         @endif
+
 
 
         <!-- Chiqish -->

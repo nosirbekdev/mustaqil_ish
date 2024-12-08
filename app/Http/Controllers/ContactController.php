@@ -10,7 +10,7 @@ class ContactController extends Controller
     public function index()
 {
     // Murojaatlar ro'yxatini olish
-    $contacts = Contact::all(); // Yoki boshqa filtering qo'llash (masalan, order by)
+    $contacts = Contact::latest()->paginate(9); // Yoki boshqa filtering qo'llash (masalan, order by)
 
     // Blade viewga contactsni uzatish
     return view('admin.contacts.index', compact('contacts'));
@@ -33,14 +33,22 @@ class ContactController extends Controller
     return redirect()->back()->with('success', 'Murojaatingiz yuborildi!');
 }
 
+public function markAsRead($id)
+{
+    $contact = Contact::findOrFail($id);
+    $contact->is_read = true;
+    $contact->save();
+
+    return redirect()->route('contacts.index')->with('success', 'Murojaat o‘qildi deb belgilandi.');
+}
+
 public function destroy($id)
 {
     $contact = Contact::findOrFail($id);
     $contact->delete();
 
-    return redirect()->route('contacts.index')->with('success', 'Murojaat muvaffaqiyatli o‘chirildi.');
+    return redirect()->route('contacts.index')->with('success', 'Murojaat o‘chirildi.');
 }
-
 
 
 }

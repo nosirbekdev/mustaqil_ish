@@ -17,6 +17,7 @@ use App\Http\Controllers\AsiaController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\VideoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,10 +42,20 @@ Route::get('/user/magazines/centralasia', [RouteController::class, 'centralasia'
 Route::get('/user/literature/textbooks', [RouteController::class, 'textbooks'])->name('user.literature.textbooks');
 Route::get('/user/literature/manuals', [RouteController::class, 'manuals'])->name('user.literature.manuals');
 Route::get('/user/gallery/photos', [RouteController::class, 'photos'])->name('user.gallery.photos');
+Route::get('/user/gallery/videos', [RouteController::class, 'videos'])->name('user.gallery.videos');
 
 Route::get('/journal', [RouteController::class, 'journal'])->name('journal');
 Route::get('/contact', [RouteController::class, 'contact'])->name('contact');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+Route::patch('contacts/{id}/mark-as-read', [ContactController::class, 'markAsRead'])->name('contacts.markAsRead');
+
+
+Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
+Route::get('/videos/create', [VideoController::class, 'create'])->name('videos.create');
+Route::post('/videos', [VideoController::class, 'store'])->name('videos.store');
+Route::delete('videos/{video}', [VideoController::class, 'destroy'])->name('videos.destroy');
+
+
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('books', BookController::class);

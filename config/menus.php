@@ -59,7 +59,7 @@ return [
             'dropdown' => true,
             'items' => [
                 ['name' => 'Rasmlar', 'link' => '/user/gallery/photos'],
-                ['name' => 'Video lavhalar', 'link' => '#'],
+                ['name' => 'Video lavhalar', 'link' => '/user/gallery/videos'],
             ],
         ],
         [
