@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>@yield('title', 'Dashboard')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Font Awesome kutubxonasini yuklash -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -75,6 +75,7 @@
                 <h3 class="font-semibold text-base">{{ auth()->user()->name }}</h3>
                 <p class="text-sm text-gray-600">{{ auth()->user()->email }}</p>
             </div>
+
         </div>
 
         <!-- Asosiy sahifa bo'limi -->
@@ -106,7 +107,7 @@
         <!-- Faqat oddiy foydalanuvchilar uchun "Mening maqolalarim" bo'limi -->
         @if(!auth()->user()->hasRole('admin'))
             <a href="{{ route('articles.create') }}" class="sidebar-item {{ request()->routeIs('articles.create') ? 'active' : '' }}">
-                <i class="fas fa-newspaper"></i> Mening maqolalarim
+                <i class="fas fa-newspaper"></i> Maqolalar qo'shish
             </a>
         @endif
 
@@ -125,6 +126,10 @@
 
 
 
+        <!-- edit profile button -->
+        <a href="{{ route('profile.edit') }}" class="sidebar-item {{ request()->routeIs('contacts.i   ndex') ? 'active' : '' }}">
+            <i class="fas fa-user-edit"></i> Profilni tahrirlash
+        </a>
         <!-- Chiqish -->
         <form action="{{ route('logout') }}" method="POST" class="logout-button">
             @csrf

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Kitoblar')
+
 @section('content')
 <div class="max-w-4xl mx-auto">
     <div class="flex justify-between items-center mb-5">

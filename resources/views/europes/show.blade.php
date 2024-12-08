@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Yevropa maqolasi')
+
 @section('content')
 <div class="max-w-2xl mx-auto p-6">
 <p class="text-gray-600 text-md mb-2 overflow-hidden max-h-20 truncate">

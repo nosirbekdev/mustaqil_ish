@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Fotolavhani Tahrirlash')
+
 @section('content')
 <div class="container mx-auto p-6">
     <h1 class="text-3xl font-semibold text-center mb-6">Fotolavhani Tahrirlash</h1>

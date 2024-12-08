@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $abstract->title)
+
 @section('content')
 <div class="max-w-2xl mx-auto p-6">
     <!-- Maqola yoki dissertatsiya sarlavhasi -->

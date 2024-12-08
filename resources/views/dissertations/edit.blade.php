@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('title', 'Dissertatsiyani Tahrirlash')
+
 @section('content')
 <div class="container mx-auto py-10">
     <div class="flex justify-center">
         <div class="w-full max-w-2xl">
             <div class="bg-white shadow-md rounded-lg">
                 <div class="bg-blue-600 text-white p-4 rounded-t-lg">
-                    <h4 class="text-lg font-semibold">Maqolani tahrirlash</h4>
+                    <h4 class="text-lg font-semibold">Dissertatsiyani tahrirlash</h4>
                 </div>
                 <div class="p-6">
                 <form action="{{ route('dissertations.update', $dissertation->id) }}" method="POST" enctype="multipart/form-data">
@@ -29,7 +31,7 @@
                     </div>
 
                     <div class="mb-5">
-                        <label for="content" class="block text-sm font-medium text-gray-700">Maqola matni</label>
+                        <label for="content" class="block text-sm font-medium text-gray-700">Dissertatsiya matni</label>
                         <textarea
                             name="content"
                             id="content"

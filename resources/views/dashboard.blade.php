@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Dashboard')
+
 @section('content')
 <a href="/" class="items-center text-gray-600 mb-4 inline-block"><i class="fas fa-arrow-left"></i> Ortga</a>
 

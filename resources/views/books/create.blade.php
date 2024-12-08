@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', isset($book) ? old('author', $book->title ?? '') : 'Yangi kitob qo\'shish')
+
 @section('content')
 <div class="max-w-2xl mx-auto">
     <h1 class="text-2xl font-semibold mb-4">{{ isset($book) ? 'Kitobni Tahrirlash' : 'Yangi Kitob Qo\'shish' }}</h1>

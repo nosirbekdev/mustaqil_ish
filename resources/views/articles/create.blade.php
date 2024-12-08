@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Yaratish')
+
 @section('content')
 <div class="max-w-2xl mx-auto p-6">
     <h1 class="text-3xl font-semibold text-center mb-6">Yaratish</h1>

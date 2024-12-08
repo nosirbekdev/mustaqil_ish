@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Maqolani Tahrirlash')
+
 @section('content')
 <div class="container mx-auto py-10">
     <div class="flex justify-center">

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Yangi Video Qo\'shish')
+
 @section('content')
     <div class="container">
         <h1 class="text-2xl font-bold mb-4">Yangi Video Qo'shish</h1>

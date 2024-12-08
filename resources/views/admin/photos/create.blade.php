@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Fotolavha Qo\'shish')
+
 @section('content')
 <div class="container mx-auto p-6">
     <h1 class="text-3xl font-semibold text-center mb-6">Fotolavha Qo'shish</h1>
