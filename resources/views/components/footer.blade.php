@@ -1,10 +1,10 @@
 <footer class="bg-blue-900 text-white py-8">
   <div class="container mx-auto max-w-6xl grid grid-cols-6 gap-6">
 
-    <div class="">
+    <a href="/" class="">
       <img src="{{ asset('/assets/logo.jpeg')}}" alt="Logo" class="mb-4 w-40 h-auto rounded-md">
 
-    </div>
+    </a>
 
     <div>
       <h3 class="text-lg font-semibold mb-4 text-[#FFD960]">Komparativistika markazlari</h3>
@@ -17,8 +17,8 @@
     <div>
       <h3 class="text-lg font-semibold mb-4 text-[#FFD960]">Biz haqimizda</h3>
       <ul class="space-y-2">
-        <li><a href="#" class="hover:underline">Loyihaning maqsad va vazifalari</a></li>
-        <li><a href="#" class="hover:underline">Loyiha bo'yicha maqolalar</a></li>
+        <li><a href="/user/about/goals" class="hover:underline">Loyihaning maqsad va vazifalari</a></li>
+        <li><a href="/user/about/articles" class="hover:underline">Loyiha bo'yicha maqolalar</a></li>
       </ul>
     </div>
 
@@ -26,8 +26,8 @@
     <div>
       <h3 class="text-lg font-semibold mb-4 text-[#FFD960]">Ilmiy tadqiqotlar</h3>
       <ul class="space-y-2">
-        <li><a href="#" class="hover:underline">Dissertatsiyalar</a></li>
-        <li><a href="#" class="hover:underline">Darsliklar</a></li>
+        <li><a href="/user/scientific/dissertations" class="hover:underline">Dissertatsiyalar</a></li>
+        <li><a href="/user/literature/textbooks" class="hover:underline">Darsliklar</a></li>
       </ul>
     </div>
 
@@ -35,8 +35,8 @@
     <div>
       <h3 class="text-lg font-semibold mb-4 text-[#FFD960]">Galleya</h3>
       <ul class="space-y-2">
-        <li><a href="#" class="hover:underline">Fotolar</a></li>
-        <li><a href="#" class="hover:underline">Videolar</a></li>
+        <li><a href="/user/gallery/photos" class="hover:underline">Fotolar</a></li>
+        <li><a href="/user/gallery/videos" class="hover:underline">Videolar</a></li>
       </ul>
     </div>
 

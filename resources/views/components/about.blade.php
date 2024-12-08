@@ -15,9 +15,11 @@
       <div class="bg-blue-800 hover:bg-blue-900 transition duration-300 p-4  h-[20vh]">
         <h2 class="text-xl font-semibold">OAV biz haqimizda</h2>
       </div>
+      <a href="{{ route('journal')}}">
       <div class="bg-green-700 hover:bg-green-800 transition duration-300 p-4  h-[20vh]">
         <h2 class="text-xl font-semibold">Bizning Jurnallar</h2>
       </div>
+      </a>
     </div>
   </div>
 </div>
