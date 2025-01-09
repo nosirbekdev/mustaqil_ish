@@ -14,21 +14,21 @@
             margin: 0;
         }
         aside {
-            position: fixed; /* Sidebarni sahifada bir joyda ushlab turish */
+            position: fixed;
             top: 0;
             left: 0;
-            height: 100vh; /* Sidebar balandligi */
+            height: 100vh;
             width: 250px;
             background-color: #f8f9fa;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             border-right: 1px solid #e9ecef;
-            overflow-y: auto; /* Agar mazmun ko'p bo'lsa skroll ko'rinadi */
+            overflow-y: auto;
             display: flex;
-            flex-direction: column; /* Elementlarni ustma-ust joylashtirish */
+            flex-direction: column;
         }
         main {
-            margin-left: 250px; /* Sidebar kengligini hisobga olish */
+            margin-left: 250px;
             flex-grow: 1;
             padding: 20px;
             background: #f4f6f9;
@@ -57,66 +57,47 @@
             object-fit: cover;
         }
         .logout-button {
-            margin-top: auto; /* Tugmani pastga joylashtirish */
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
-    <aside>
-        <!-- Foydalanuvchi haqida ma'lumot -->
-        <div class="flex items-center mb-6">
-            <!-- Avatar -->
-            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('assets/default-avatar.png') }}"
-                 alt="Avatar"
-                 class="avatar mr-4">
-
-            <!-- Foydalanuvchi ismi va email -->
-            <div>
-                <h3 class="font-semibold text-base">{{ auth()->user()->name }}</h3>
-                <p class="text-sm text-gray-600">{{ auth()->user()->email }}</p>
-            </div>
-
+<aside>
+    <!-- Foydalanuvchi haqida ma'lumot -->
+    <div class="flex items-center mb-6">
+        <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('assets/default-avatar.png') }}"
+             alt="Avatar"
+             class="avatar mr-4">
+        <div>
+            <h3 class="font-semibold text-base">{{ auth()->user()->name }}</h3>
+            <p class="text-sm text-gray-600">{{ auth()->user()->email }}</p>
         </div>
+    </div>
 
-        <!-- Asosiy sahifa bo'limi -->
+    <!-- Foydalanuvchi faqat o'z avatarini va nomini ko'rishi uchun boshqa bo'limlarni yashirish -->
+    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('writer'))
+        <!-- Admin va Yozuvchi uchun bo'limlar -->
         <a href="{{ route('dashboard') }}" class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <i class="fas fa-home"></i> Asosiy sahifa
         </a>
-
-        <!-- Faqat admin uchun kitob qo'shish bo'limi -->
+        <!-- Admin bo'limlari -->
         @if(auth()->user()->hasRole('admin'))
             <a href="{{ route('books.index') }}" class="sidebar-item {{ request()->routeIs('books.index') ? 'active' : '' }}">
                 <i class="fas fa-book"></i> Kitoblar
             </a>
-        @endif
-
-        <!-- admin uchun fotolavhalar qoshish -->
-         @if(auth()->user()->hasRole('admin'))
             <a href="{{ route('photos.index') }}" class="sidebar-item {{ request()->routeIs('photos.index') ? 'active' : '' }}">
                 <i class="fas fa-images"></i> Fotolavhalar
             </a>
-        @endif
-
-        <!-- Faqat admin uchun videolar qo'shish bo'limi -->
-        @if(auth()->user()->hasRole('admin'))
             <a href="{{ route('videos.index') }}" class="sidebar-item {{ request()->routeIs('videos.index') ? 'active' : '' }}">
                 <i class="fas fa-video"></i> Videolar
             </a>
-        @endif
-
-        <!-- Faqat oddiy foydalanuvchilar uchun "Mening maqolalarim" bo'limi -->
-        @if(!auth()->user()->hasRole('admin'))
-            <a href="{{ route('articles.create') }}" class="sidebar-item {{ request()->routeIs('articles.create') ? 'active' : '' }}">
-                <i class="fas fa-newspaper"></i> Maqolalar qo'shish
+            <a href="{{ route('admin.users.index') }}" class="sidebar-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                <i class="fas fa-users"></i> Foydalanuvchilar
             </a>
-        @endif
-
-        @php
-            $unreadCount = \App\Models\Contact::where('is_read', false)->count();
-        @endphp
-
-        @if(auth()->user()->hasRole('admin'))
-            <a href="{{ route('contacts.index') }}" class="sidebar-item {{ request()->routeIs('contacts.i   ndex') ? 'active' : '' }}">
+            @php
+                $unreadCount = \App\Models\Contact::where('is_read', false)->count();
+            @endphp
+            <a href="{{ route('contacts.index') }}" class="sidebar-item {{ request()->routeIs('contacts.index') ? 'active' : '' }}">
                 <i class="fas fa-envelope"></i> Murojaatlar
                 @if($unreadCount > 0)
                     <span class="badge bg-red-600 text-white px-1 rounded-sm">{{ $unreadCount }}</span>
@@ -124,23 +105,43 @@
             </a>
         @endif
 
+        <!-- Yozuvchi uchun bo'limlar -->
+        @if(!auth()->user()->hasRole('admin'))
+            <a href="{{ route('articles.create') }}" class="sidebar-item {{ request()->routeIs('articles.create') ? 'active' : '' }}">
+                <i class="fas fa-newspaper"></i> Maqolalar qo'shish
+            </a>
+        @endif
 
-
-        <!-- edit profile button -->
-        <a href="{{ route('profile.edit') }}" class="sidebar-item {{ request()->routeIs('contacts.i   ndex') ? 'active' : '' }}">
+        <!-- Profilni tahrirlash -->
+        <a href="{{ route('profile.edit') }}" class="sidebar-item {{ request()->routeIs('profile.edit') ? 'active' : '' }}">
             <i class="fas fa-user-edit"></i> Profilni tahrirlash
         </a>
-        <!-- Chiqish -->
-        <form action="{{ route('logout') }}" method="POST" class="logout-button">
-            @csrf
-            <button type="submit" class="sidebar-item">
-                <i class="fas fa-sign-out-alt"></i> Chiqish
-            </button>
-        </form>
-    </aside>
+    @endif
 
-    <main>
+    <!-- Chiqish -->
+    <form action="{{ route('logout') }}" method="POST" class="logout-button">
+        @csrf
+        <button type="submit" class="sidebar-item">
+            <i class="fas fa-sign-out-alt"></i> Chiqish
+        </button>
+    </form>
+</aside>
+
+<main>
+
+
+    @if(auth()->check())
+        @if(auth()->user()->hasRole('admin'))
         @yield('content')
-    </main>
+        @elseif(auth()->user()->hasRole('writer'))
+        @yield('content')
+        @else
+            <p class="flex justify-center items-center h-[90vh] font-medium text-xl">Sizning so'rovingiz yuborildi admin tasdiqlasa maqola yaratishingiz mumkin.</p>
+        @endif
+    @else
+        <p>Iltimos, tizimga kiring.</p>
+    @endif
+</main>
+
 </body>
 </html>

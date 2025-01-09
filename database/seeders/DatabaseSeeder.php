@@ -12,6 +12,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Admin foydalanuvchini yaratish uchun AdminUserSeeder'ni chaqirish
+
+        $this->call(RoleSeeder::class);
         $this->call(AdminUserSeeder::class);
+
     }
 }

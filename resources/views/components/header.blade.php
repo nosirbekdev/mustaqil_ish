@@ -25,7 +25,7 @@
         <a href="/login" class="bg-blue-500 text-gray-200 px-4 py-2 rounded hover:bg-gray-300 hover:text-blue-700">Kirish</a>
         <a href="/register" class="bg-gray-200 text-blue-700 px-4 py-2 rounded hover:bg-blue-500 hover:text-gray-200">Ro‘yxatdan o‘tish</a>
       @endif
-      <input type="text" placeholder="Search..." class="bg-white text-black px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <!-- <input type="text" placeholder="Search..." class="bg-white text-black px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"> -->
     </div>
   </div>
 

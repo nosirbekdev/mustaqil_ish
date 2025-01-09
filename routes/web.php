@@ -18,6 +18,9 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\Admin\UserController;
+use Spatie\Permission\Models\Role;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -222,6 +225,10 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
+
+Route::get('admin/users', [UserController::class, 'index'])->name('admin.users.index');
+Route::get('admin/users/{user}/assign-role', [UserController::class, 'editRole'])->name('admin.users.edit-role');
+Route::post('admin/users/{user}/assign-role', [UserController::class, 'updateRole'])->name('admin.users.update-role');
 
 
 
